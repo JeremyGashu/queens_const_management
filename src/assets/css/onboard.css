@@ -1,0 +1,23 @@
+.items-container {
+    margin: 10px;
+}
+
+.delete {
+    border: 0px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: rgb(238, 15, 15);
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+}
+.delete:hover {
+    transform: scale(1.2);
+    background-color: rgb(153, 0, 0);
+}
+
+
+
+

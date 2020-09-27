@@ -1,0 +1,162 @@
+* {
+	padding: 0px;
+	margin: 0px;
+	box-sizing: border-box;
+}
+body {
+	background-color: rgba(230, 230, 230, 0.719);
+}
+
+p {
+	font-family: 'Ubuntu', sans-serif;
+}
+
+.main-conrainer {
+	position: relative;
+}
+
+button {
+	outline: none;
+}
+
+.add-item,
+.comment {
+	cursor: pointer;
+	padding: 10px 30px;
+	cursor: pointer;
+	outline: none;
+	border: none;
+	background-color: rgb(0, 87, 116);
+	color: white;
+	border-radius: 3px;
+	box-shadow: 1px 1px 3px 1px rgb(192, 192, 192);
+}
+.add-item:hover,
+.submit:hover,
+.comment:hover {
+	background-color: rgb(0, 59, 78);
+}
+
+.form-container {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	margin: 20px;
+}
+
+.price-field,
+.name-field,
+.supplier {
+	color: rgb(38, 50, 56);
+	font-weight: 700;
+	font-size: 14px;
+	letter-spacing: 1px;
+	background: rgba(136, 126, 126, 0.04);
+	padding: 10px 20px;
+	border: none;
+	border-radius: 20px;
+	outline: none;
+	box-sizing: border-box;
+	border: 2px solid rgba(0, 0, 0, 0.02);
+	text-align: center;
+	font-family: 'Ubuntu', sans-serif;
+}
+
+.name-field:focus,
+.price-field:focus {
+	border: 2px solid rgba(0, 0, 0, 0.18) !important;
+}
+
+.items-container {
+	margin: 10px;
+}
+
+.delete {
+	border: 0px;
+	width: 30px;
+	height: 30px;
+	border-radius: 40%;
+	background-color: rgb(255, 0, 0);
+	color: white;
+	cursor: pointer;
+	transition: all 0.5s ease;
+	outline: none;
+}
+.delete:hover {
+	transform: scale(1.2);
+	background-color: rgb(153, 0, 0);
+}
+
+.item {
+	border: 1px solid rgb(172, 253, 172);
+	display: flex;
+	width: 90%;
+	margin: 8px auto;
+	justify-content: space-between;
+	align-items: center;
+	background-color: white;
+	padding: 20px 30px;
+	box-shadow: 1px 3px 3px 1px rgb(195, 195, 195);
+	border-radius: 5px;
+}
+
+.item-name,
+.item-price {
+	flex: 1;
+}
+.hidden * {
+	display: none;
+	overflow: hidden;
+}
+
+.last-button {
+	width: 60%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+.user-container {
+	position: relative;
+}
+
+.check-btn {
+	animation: mymove 2s infinite;
+	position: fixed;
+	bottom: 10px;
+	right: 20px;
+	cursor: pointer;
+	padding: 10px 30px;
+	cursor: pointer;
+	outline: none;
+	border: none;
+	background-color: rgb(0, 87, 116);
+	color: white;
+	border-radius: 3px;
+	box-shadow: 1px 1px 3px 1px rgb(192, 192, 192);
+}
+@keyframes mymove {
+	from {
+		background-color: rgb(0, 87, 116);
+	}
+	to {
+		background-color: rgb(0, 142, 189);
+	}
+}
+.logout {
+	position: fixed;
+	bottom: 10px;
+	right: 180px;
+	cursor: pointer;
+	padding: 10px 30px;
+	cursor: pointer;
+	outline: none;
+	border: none;
+	background-color: rgb(0, 87, 116);
+	color: white;
+	border-radius: 3px;
+	box-shadow: 1px 1px 3px 1px rgb(192, 192, 192);
+}
+.check-btn:hover,
+.logout:hover {
+	background-color: rgb(0, 46, 61);
+}
