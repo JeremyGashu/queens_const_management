@@ -3,6 +3,7 @@ import '../assets/css/RSPD.css';
 import link from '../utils/link';
 import { parseISOString } from './Entries';
 import Loading from 'react-simple-loading';
+import WaterMark from './WaterMark';
 
 const RSPD = props => {
 	const [entry, setEntry] = useState({});
@@ -20,6 +21,7 @@ const RSPD = props => {
 
 	return (
 		<div className="main-container">
+			<WaterMark />
 			<div className="btns">
 				<button
 					onClick={() => {
@@ -136,6 +138,10 @@ const RSPD = props => {
 					</div>
 				)}
 			</div>
+			{entry.imageName ? <div className="image">
+			{<img src={`${link.base}uploads/${entry.imageName}`} alt=""/>}
+			</div>: null}
+
 		</div>
 	);
 };

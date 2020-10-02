@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import '../assets/css/entries.css';
 import link from '../utils/link';
 import Loading from 'react-simple-loading';
+import {useSelector} from 'react-redux'
 
 
 export const parseISOString = s => {
@@ -10,7 +11,29 @@ export const parseISOString = s => {
 };
 
 const Entries = props => {
-    const [entries, setEntries] = useState([])
+
+
+	
+	const userType = useSelector(state => state.authData.user.authType)
+	
+	const [entries, setEntries] = useState([])
+
+	
+	// let visible;
+
+	// //style the table based
+	// if (userType === 'USER') {
+	// 	visible = !entry.userChecked;
+	// } //checked
+	// else if (userType === 'MARKETING') {
+	// 	visible = !entry.marketingManagerChecked && entry.userChecked;
+	// } //checked or user hasnt approed it yet
+	// else if (userType === 'MANAGER') {
+	// 	visible = !entry.generalManagerChecked && entry.marketingManagerChecked;
+	// } //checked or marketing hasnt approved it yet
+	// else {
+	// 	visible = false;
+	// }
 
     // console.log(entries.entries)
     useEffect(() => {
@@ -22,24 +45,36 @@ const Entries = props => {
         //see detail page
         props.history.push(`/printable/${id}`)
         //open windows side to side
-    }
+	}
+	
+	
 
 	let jsx;
 
-	
+	let filteredEntry = entries.filter(entry => {
+		switch(userType){
+			case 'USER':
+				return true
+			case 'MARKETING':
+				return !entry.marketingManagerChecked && entry.userChecked
+			case 'MANAGER':
+				return !entry.generalManagerChecked && entry.marketingManagerChecked
+			default: return entry
+		}
+	})
 
-	// let entries = useSelector(state => state.entries);
 
 	if (entries) {
-        // entries = entries.entries;
-        let stage
-		jsx = entries.map((entry, index) => {
+        // entries = entries.entries;<OnBoard />
+        let stage = 'Water Mark'
+		jsx = filteredEntry.map((entry, index) => {
 			if(!entry.userChecked) stage = 'stage-0'
             if(entry.userChecked && !entry.marketingManagerChecked) stage = 'stage-1'
             if(entry.userChecked && entry.marketingManagerChecked && !entry.generalManagerChecked) stage = 'stage-2'
-            if(entry.userChecked && entry.marketingManagerChecked && entry.generalManagerChecked) stage = 'stage-3'
+			if(entry.userChecked && entry.marketingManagerChecked && entry.generalManagerChecked) stage = 'stage-3'
 
 			return (
+				
 				<tr onClick={() => {handleClick(entry._id)}} className={stage} key={entry._id}>
 					<td>{index + 1}</td>
 					<td>{parseISOString(entry.addedOn).substring(0, 24)}</td>
@@ -68,7 +103,7 @@ const Entries = props => {
                 </thead>
 				<tbody>
 					
-					{jsx.length !== 0 ? jsx : <div className='loading'><Loading color={'firebrick'} stroke={'5px'} size={'110px'} /></div>}
+					{jsx.length !== 0 ? jsx : <tr><div className='loading'><Loading color={'firebrick'} stroke={'5px'} size={'110px'} /></div></tr>}
 				</tbody>
 			</table>
 			{/* {e} */}

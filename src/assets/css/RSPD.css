@@ -1,0 +1,21 @@
+.image {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	top: 80px;
+	max-width: 500px;
+	margin: 10px auto;
+	padding: 10px;
+	border-radius: 10px;
+	background-color: rgb(245, 217, 217);
+}
+
+.image img {
+	max-width: 100%;
+	object-fit: cover;
+}
+
+.main-container {
+	position: relative;
+}

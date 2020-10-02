@@ -3,7 +3,7 @@ import AddItem from './AddItem';
 import OnBoard from './OnBoard';
 import BottomButtons from './BottomButton';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearAuthData, setEntries } from '../actions/action';
+import { clearAuthData, setEntries, showState } from '../actions/action';
 import link from '../utils/link';
 
 const User = props => {
@@ -36,12 +36,10 @@ const User = props => {
 						break;
 					case 'MANAGER':
 						exist = data.entries.filter(item => ((item.generalManagerChecked === false) && (item.marketingManagerChecked)));
-
 						break;
 					case 'MARKETING':
-						exist = data.entries.filter(item => (item.marketingManagerChecked === false) && (item.user));
-
-						return;
+						exist = data.entries.filter(item => ((item.marketingManagerChecked === false) && (item.userChecked)));
+						break;
 					default:
 						break;
 				}

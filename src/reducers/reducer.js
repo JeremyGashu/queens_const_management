@@ -8,7 +8,8 @@ const initState = {
 	onBoard: { entries: [], supplier: '5f6aebaaee2db900171ee583' },
 	// currentlyAdding : {},
     isLoggedIn: false,
-    submitting : false
+    submitting : false,
+    entryImage : null
 };
 
 //loadEntries (started, finished)
@@ -24,6 +25,13 @@ const reducer = (state = initState, action) => {
         case 'SHOW_STATE':
             console.log(state)
             return state
+        case 'SET_ENTRY_IMAGE':
+            console.log(action.payload);
+            
+            return {
+                ...state,
+                entryImage : action.payload
+            }
 		case 'SET_AUTH_DATA':
 			return {
 				...state,

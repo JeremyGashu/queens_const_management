@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {useDispatch} from 'react-redux'
 import '../assets/css/user.css';
-import { addItem, setSupplier } from '../actions/action';
+import { addItem, setSupplier, setEntryImage } from '../actions/action';
 
 export default function AddItem() {
 	const dispatch = useDispatch()
@@ -28,13 +28,21 @@ export default function AddItem() {
 
 	const addItemToEntry = e => {
 		if(name !== '' && price !== ''){
-			dispatch(addItem({name, price, id : Math.random()}))	
+			dispatch(addItem({name, price, id : Math.random()}))
+				
 		}
+	}
+	const changeFile = (e) => {
+dispatch(setEntryImage(e.target.files[0]))
 	}
 	return (
 		<div className="form-container">
+			<form action="">
+
+			</form>
 			<input type="text" name="name" onChange={changeName} placeholder="Enter name..." className="name-field" />
 			<input type="number" min={0} onChange={changePrice} name="price" placeholder="Enter Price..." className="price-field" />
+			<input required type="file" name="entryImage" onChange={changeFile} placeholder='Add image...'/>
 			<select defaultValue={'5f6aebaaee2db900171ee583'} onChange={changeSupplier} name="supplier" className="supplier">
 				<option value={'5f6aeb98ee2db900171ee582'}>Samuel Negash</option>
 				<option value={'5f6aeb79ee2db900171ee580'}>Abebe Gedefaw</option>

@@ -8,6 +8,13 @@ export const setAuthData = (payload) => {
     }
 }
 
+export const setEntryImage = (payload) => {
+    return {
+        type : 'SET_ENTRY_IMAGE',
+        payload
+    }
+}
+
 export const clearAuthData = () => {
     return {
         type : 'CLEAR_AUTH_DATA'

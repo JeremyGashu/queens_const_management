@@ -4,6 +4,7 @@ import link from '../utils/link';
 import '../assets/css/printable.css';
 import { parseISOString } from './Entries';
 import Loading from 'react-simple-loading';
+import WaterMark from './WaterMark';
 
 const Printable = props => {
 	const userType = useSelector(state => state.authData.user.authType);
@@ -48,6 +49,11 @@ const Printable = props => {
 	else {
 		visible = false;
 	}
+	let stage
+	if(!entry.userChecked) stage = 'stage-0'
+            if(entry.userChecked && !entry.marketingManagerChecked) stage = 'stage-1'
+            if(entry.userChecked && entry.marketingManagerChecked && !entry.generalManagerChecked) stage = 'stage-2'
+            if(entry.userChecked && entry.marketingManagerChecked && entry.generalManagerChecked) stage = 'stage-3'
 	return (
 		<div className="main-container">
 			<div className="btns">
@@ -79,6 +85,8 @@ const Printable = props => {
 			</div>
 
 			<div className="printable-container">
+			{stage ? <WaterMark stage={stage}/> : null}
+			
 				{!entry.entries ? (
 					<Loading color={'firebrick'} stroke={'5px'} size={'110px'} />
 				) : (
@@ -115,6 +123,10 @@ const Printable = props => {
 					</div>
 				)}
 			</div>
+			{entry.imageName ? <div className="image">
+			{<img src={`${link.base}uploads/${entry.imageName}`} alt=""/>}
+			</div>: null}
+			
 		</div>
 	);
 };

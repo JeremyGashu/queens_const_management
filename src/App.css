@@ -123,6 +123,12 @@ table.tableizer-table {
 	font-weight: bold;
 }
 
+button[disabled=true] :required{
+	background-color: rgb(212, 212, 212);
+	color: #444;
+
+}
+
 @media (max-width: 600px) {
 	.main {
 		border-radius: 0px;
