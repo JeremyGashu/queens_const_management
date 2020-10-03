@@ -9,7 +9,6 @@ import WaterMark from './WaterMark';
 const Printable = props => {
 	const userType = useSelector(state => state.authData.user.authType);
 	const [entry, setEntry] = useState({});
-	console.log(entry.entries);
 
 	const id = props.match.params.entry_id;
 	useEffect(() => {

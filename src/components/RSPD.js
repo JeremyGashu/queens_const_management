@@ -4,8 +4,13 @@ import link from '../utils/link';
 import { parseISOString } from './Entries';
 import Loading from 'react-simple-loading';
 import WaterMark from './WaterMark';
+// import { useSelector } from 'react-redux';
+
 
 const RSPD = props => {
+
+	// const userType = useSelector(state => state.authData.user.authType);
+
 	const [entry, setEntry] = useState({});
 
 	useEffect(() => {
@@ -19,9 +24,15 @@ const RSPD = props => {
 
 	const id = props.match.params.entry_id;
 
+	let stage
+	if(!entry.userChecked) stage = 'stage-0'
+            if(entry.userChecked && !entry.marketingManagerChecked) stage = 'stage-1'
+            if(entry.userChecked && entry.marketingManagerChecked && !entry.generalManagerChecked) stage = 'stage-2'
+            if(entry.userChecked && entry.marketingManagerChecked && entry.generalManagerChecked) stage = 'stage-3'
+
 	return (
 		<div className="main-container">
-			<WaterMark />
+			
 			<div className="btns">
 				<button
 					onClick={() => {
@@ -38,6 +49,8 @@ const RSPD = props => {
 				</button>
 			</div>
 			<div className="printable-container">
+			{stage ? <WaterMark stage={stage}/> : null}
+
 				{!entry.entries ? (
 					<Loading color={'firebrick'} stroke={'5px'} size={'110px'} />
 				) : (

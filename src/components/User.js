@@ -3,7 +3,7 @@ import AddItem from './AddItem';
 import OnBoard from './OnBoard';
 import BottomButtons from './BottomButton';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearAuthData, setEntries, showState } from '../actions/action';
+import { clearAuthData, setEntries } from '../actions/action';
 import link from '../utils/link';
 
 const User = props => {
