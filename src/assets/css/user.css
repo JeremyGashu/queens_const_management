@@ -46,7 +46,7 @@ button {
 
 .price-field,
 .name-field,
-.supplier {
+.supplier-field,.entry-image {
 	color: rgb(38, 50, 56);
 	font-weight: 700;
 	font-size: 14px;

@@ -56,7 +56,7 @@ const RSPD = props => {
 				) : (
 					<div>
 						<p style={{ paddingTop: '20px', paddingBottom: '10px', textAlign: 'center', color: '#444' }}>
-							Supplier name : {entry.supplierId ? entry.supplierId.name : null} Date :{' '}
+							Supplier name : {entry.supplier ? entry.supplier : null} Date :{' '}
 							{entry.addedOn ? parseISOString(entry.addedOn).substring(0, 24) : null}
 						</p>
 

@@ -5,7 +5,7 @@
 const initState = {
 	authData: { type: null, user: {authType : 'USER'} },
 	entries: [],
-	onBoard: { entries: [], supplier: '5f6aebaaee2db900171ee583' },
+	onBoard: { entries: [], supplier: null },
 	// currentlyAdding : {},
     isLoggedIn: false,
     submitting : false,

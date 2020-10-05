@@ -78,7 +78,7 @@ const Entries = props => {
 				<tr onClick={() => {handleClick(entry._id)}} className={stage} key={entry._id}>
 					<td>{index + 1}</td>
 					<td>{parseISOString(entry.addedOn).substring(0, 24)}</td>
-					<td>{entry.supplierId.name}</td>
+					<td>{entry.supplier}</td>
 					{/* <td>
 						<button className="detail-btn">Detail</button>
 					</td> */}
@@ -103,7 +103,7 @@ const Entries = props => {
                 </thead>
 				<tbody>
 					
-					{jsx.length !== 0 ? jsx : <tr><div className='loading'><Loading color={'firebrick'} stroke={'5px'} size={'110px'} /></div></tr>}
+					{jsx.length !== 0 ? jsx : <div className='loading'><p style={{fontSize:'40px', padding : '40px', margin : '20px'}}>No new entries are found.</p></div>}
 				</tbody>
 			</table>
 			{/* {e} */}
