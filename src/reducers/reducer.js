@@ -25,9 +25,7 @@ const reducer = (state = initState, action) => {
         case 'SHOW_STATE':
             console.log(state)
             return state
-        case 'SET_ENTRY_IMAGE':
-            console.log(action.payload);
-            
+        case 'SET_ENTRY_IMAGE':            
             return {
                 ...state,
                 entryImage : action.payload

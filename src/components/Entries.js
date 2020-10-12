@@ -59,6 +59,8 @@ const Entries = props => {
 				return !entry.marketingManagerChecked && entry.userChecked
 			case 'MANAGER':
 				return !entry.generalManagerChecked && entry.marketingManagerChecked
+			case 'BRANCH':
+				return entry.generalManagerChecked && entry.marketingManagerChecked && entry.userChecked
 			default: return entry
 		}
 	})

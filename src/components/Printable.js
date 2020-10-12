@@ -5,6 +5,9 @@ import '../assets/css/printable.css';
 import { parseISOString } from './Entries';
 import Loading from 'react-simple-loading';
 import WaterMark from './WaterMark';
+import FinanceSignature from '../assets/images/finance_manager_signature.jpg'
+import GeneralManagerSignature from '../assets/images/general_manager_signature.jpg'
+
 
 const Printable = props => {
 	const userType = useSelector(state => state.authData.user.authType);
@@ -49,10 +52,11 @@ const Printable = props => {
 		visible = false;
 	}
 	let stage
+	let signature
 	if(!entry.userChecked) stage = 'stage-0'
             if(entry.userChecked && !entry.marketingManagerChecked) stage = 'stage-1'
-            if(entry.userChecked && entry.marketingManagerChecked && !entry.generalManagerChecked) stage = 'stage-2'
-            if(entry.userChecked && entry.marketingManagerChecked && entry.generalManagerChecked) stage = 'stage-3'
+            if(entry.userChecked && entry.marketingManagerChecked && !entry.generalManagerChecked) {stage = 'stage-2' ; signature = FinanceSignature}
+            if(entry.userChecked && entry.marketingManagerChecked && entry.generalManagerChecked) {stage = 'stage-3' ;signature = GeneralManagerSignature}
 	return (
 		<div className="main-container">
 			<div className="btns">
@@ -122,8 +126,11 @@ const Printable = props => {
 					</div>
 				)}
 			</div>
+			<div className="signature">
+				{signature ? <img src={signature} alt=""/> : null}
+			</div>
 			{entry.imageName ? <div className="image">
-			{<img src={`${link.base}uploads/${entry.imageName}`} alt=""/>}
+			{<img src={entry.imageName} alt=""/>}
 			</div>: null}
 			
 		</div>

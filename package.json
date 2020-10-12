@@ -10,7 +10,7 @@
       "build/**/*",
       "node_modules/**/*"
     ],
-    "directories":{
+    "directories": {
       "buildResources": "assets"
     }
   },
@@ -22,6 +22,7 @@
     "@testing-library/user-event": "^7.1.2",
     "cross-env": "^7.0.2",
     "electron-is-dev": "^1.2.0",
+    "firebase": "^7.23.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",
@@ -37,7 +38,7 @@
     "react-build": "react-scripts build",
     "react-test": "react-scripts test --env=jsdom",
     "react-eject": "react-scripts eject",
-    "electron-build": "electron-builder --dir --win",
+    "electron-build": "electron-builder --dir --win --ia32",
     "release": "yarn react-build && electron-builder --publish=always",
     "build": "yarn react-build && yarn electron-build",
     "start": "concurrently \"cross-env BROWSER=none yarn react-start\" \"wait-on http://localhost:3000 && electron .\""
