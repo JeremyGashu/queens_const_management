@@ -42,10 +42,18 @@
 	width: 100vw;
 }
 .signature img {
-	width: 300px;
-	height: 300px;
-	object-fit: cover;
-	padding: 25px;;
+	width: 100px;
+	height: 100px;
+	padding: 15px;
+}
+.signature p {
+	color: rgb(99, 99, 99);
+	font-size: 22px;
+}
+
+.signature span {
+	font-size: 30px;
+	padding-left: 5px;;
 }
 .btns button:hover {
 	background-color: rgb(0, 46, 61);

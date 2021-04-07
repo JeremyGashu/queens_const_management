@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import '../assets/css/entries.css';
 import link from '../utils/link';
-import Loading from 'react-simple-loading';
 import {useSelector} from 'react-redux'
 
 
@@ -37,18 +36,17 @@ const Entries = props => {
 
     // console.log(entries.entries)
     useEffect(() => {
-        fetch(`${link.base}entries/`).then(res => res.json()).then(data => setEntries(data.entries))
+        fetch(`${link.base}entries/`).then(res => res.json()).then(data => setEntries(data.entries.reverse()))
     }, [])
 
     const handleClick = (id) => {
         
-        //see detail page
-        props.history.push(`/printable/${id}`)
+		//see detail page
+		userType === 'BRANCH' ? props.history.push(`/printable/${id}`) : props.history.push(`/RSPD/${id}`)
+        // props.history.push(`/RSPD/${id}`)
         //open windows side to side
 	}
 	
-	
-
 	let jsx;
 
 	let filteredEntry = entries.filter(entry => {
@@ -56,9 +54,9 @@ const Entries = props => {
 			case 'USER':
 				return true
 			case 'MARKETING':
-				return !entry.marketingManagerChecked && entry.userChecked
+				return entry.userChecked
 			case 'MANAGER':
-				return !entry.generalManagerChecked && entry.marketingManagerChecked
+				return entry.marketingManagerChecked
 			case 'BRANCH':
 				return entry.generalManagerChecked && entry.marketingManagerChecked && entry.userChecked
 			default: return entry
@@ -67,6 +65,7 @@ const Entries = props => {
 
 
 	if (entries) {
+		// setEntries(entries.reverse())
         // entries = entries.entries;<OnBoard />
         let stage = 'Water Mark'
 		jsx = filteredEntry.map((entry, index) => {

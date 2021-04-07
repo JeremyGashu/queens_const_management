@@ -1,4 +1,6 @@
 const electron = require('electron');
+const ipcMain = electron.ipcMain
+const shell = electron.shell
 const Menu = electron.Menu
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
@@ -29,3 +31,7 @@ app.on('activate', () => {
 		createWindow();
 	}
 });
+
+ipcMain.on('show-image', (event, args) => {
+	shell.openExternal(args)
+})

@@ -18,7 +18,6 @@ const User = props => {
 			.then(res => res.json())
 			.then(data => {
                 dispatch(setEntries(data))
-                // dispatch(showState())
 			})
 			.catch(err => console.log(err));
 	};

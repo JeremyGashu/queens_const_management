@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+
 import '../assets/css/RSPD.css';
 import link from '../utils/link';
 import { parseISOString } from './Entries';
@@ -10,9 +12,15 @@ import GeneralManagerSignature from '../assets/images/general_manager_signature.
 
 const RSPD = props => {
 
+
+	const showImageSignal = (imageUrl) => {
+		window.ipcRenderer.send('show-image', imageUrl)
+	}
 	// const userType = useSelector(state => state.authData.user.authType);
 
 	const [entry, setEntry] = useState({});
+	const userType = useSelector(state => state.authData.user.authType);
+
 
 	useEffect(() => {
 		fetch(`${link.base}entries/${id}/`)
@@ -21,17 +29,46 @@ const RSPD = props => {
 				setEntry(data);
 			})
 			.catch(err => console.log(err));
-	});
+	}, []);
+	const approveEntry = id => {
+		fetch(`${link.base}entries/${userType.toLowerCase()}/${id}`, { method: 'POST' })
+			.then(res => res.json())
+			.then(data => {
+				let notification = {
+					title: 'Alert!',
+					body: data.msg,
+				};
+				new window.Notification(notification.title, notification);
+			})
+			.catch(err => console.log(err));
+	};
+
+	let visible;
+
+	//style the table based
+	if (userType === 'USER') {
+		visible = !entry.userChecked;
+	} //checked
+	else if (userType === 'MARKETING') {
+		visible = !entry.marketingManagerChecked && entry.userChecked;
+	} //checked or user hasnt approed it yet
+	else if (userType === 'MANAGER') {
+		visible = !entry.generalManagerChecked && entry.marketingManagerChecked;
+	} //checked or marketing hasnt approved it yet
+	else {
+		visible = false;
+	}
 
 	const id = props.match.params.entry_id;
 
 	let stage
 	let signature
+	
+	let name
 	if(!entry.userChecked) stage = 'stage-0'
             if(entry.userChecked && !entry.marketingManagerChecked) stage = 'stage-1'
-            if(entry.userChecked && entry.marketingManagerChecked && !entry.generalManagerChecked) {stage = 'stage-2' ; signature = FinanceSignature}
-            if(entry.userChecked && entry.marketingManagerChecked && entry.generalManagerChecked) {stage = 'stage-3' ;signature = GeneralManagerSignature}
-
+            if(entry.userChecked && entry.marketingManagerChecked && !entry.generalManagerChecked) {stage = 'stage-2' ; signature = FinanceSignature;name='Yetinayet Taye'}
+            if(entry.userChecked && entry.marketingManagerChecked && entry.generalManagerChecked) {stage = 'stage-3' ;signature = GeneralManagerSignature; name = 'Meryem Oumer'}
 	return (
 		<div className="main-container">
 			
@@ -45,14 +82,29 @@ const RSPD = props => {
 					Home
 				</button>
 
+				{visible ? (
+					<button
+						onClick={() => {
+							approveEntry(entry._id);
+						}}
+						className="Print"
+					>
+						Approve Entry
+					</button>
+				) : null}
+
 				<button className="Print">Print</button>
 				<button onClick={() => props.history.push('/entries')} className="Print">
 					Entries
 				</button>
+				<button onClick={() => props.history.push(`/printable/${id}`)}>
+					Time Controlled Price List
+				</button>
+
 			</div>
 			<div className="printable-container">
 			{stage ? <WaterMark stage={stage}/> : null}
-
+			
 				{!entry.entries ? (
 					<Loading color={'firebrick'} stroke={'5px'} size={'110px'} />
 				) : (
@@ -154,12 +206,14 @@ const RSPD = props => {
 				)}
 			</div>
 			<div className="signature">
-				{signature ? <img src={signature} alt=""/> : null}
+				{name ? <p>Approved By : </p> : null}
+				{signature ? <><span>{name}</span> <img src={signature} alt=""/></> : null}
 			</div>
-			{entry.imageName ? <div className="image">
-			{<img src={entry.imageName} alt=""/>}
-			</div>: null}
-
+			{entry.imageName && (userType !== 'BRANCH') ? (
+				<div onClick={() => showImageSignal(entry.imageName)} className="image">
+					{<img style={{ cursor: 'pointer' }} src={entry.imageName} alt="" />}
+				</div>
+			) : null}
 		</div>
 	);
 };
